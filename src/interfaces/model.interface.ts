@@ -29,3 +29,11 @@ export interface IMedication extends Document {
   code: string;
   image: string;
 }
+
+export interface IDroneLoading extends Document {
+  droneId: string;
+  medications: {
+    medicationId: string;
+    quantity: number;
+  }[];
+}

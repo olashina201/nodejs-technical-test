@@ -1,10 +1,12 @@
-import { IDrone } from "../interfaces/model.interface";
+import { HttpException } from "../exceptions";
 import DroneModel from "../models/drone.model";
-import { ApplicationError, BadRequestError, HttpException } from "../exceptions";
+import { IDrone } from "../interfaces/model.interface";
+import MedicationModel from "../models/medication.model";
 import { droneSchemaValidation } from "../validations/drone.validation";
 
 class DroneService {
   public drone: any = DroneModel;
+  public medication: any = MedicationModel;
 
   /*
   |--------------------------------------------------------------------------
@@ -14,15 +16,13 @@ class DroneService {
   public async registerNewDrone(body: IDrone): Promise<any> {
     const { error } = droneSchemaValidation.validate(body);
 
-    if (error) throw new BadRequestError("REGISTER_DRONE_VALIDATION_ERROR", [error.details[0].message]);
-    
-    try {
-      const data: any = await this.drone.create(body);
-      return data;
-    } catch (err) {
-      console.log(err);
-      throw new ApplicationError("REGISTER_DRONE_REQUEST_ERROR", []);
+    if (error) {
+      throw new HttpException(400, 2001, "REGISTER_DRONE_VALIDATION_ERROR", [error.details[0].message]);
     }
+
+    const data: any = new DroneModel.DroneModel(body);
+    data.save();
+    return data;
   }
 }
 
