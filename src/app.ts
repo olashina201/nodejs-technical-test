@@ -1,6 +1,7 @@
 import { App } from "./config/app.config";
+import IndexRoute from "./routes/index.route";
 
-const { app } = new App();
+const { app } = new App([new IndexRoute()]);
 
 const PORT = process.env.PORT || 5000;
 
