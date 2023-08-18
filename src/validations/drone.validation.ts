@@ -14,9 +14,20 @@ export const droneSchemaValidation = Joi.object({
     .required(),
 });
 
+// Update Drone validation schema
+export const updateDroneSchemaValidation = Joi.object({
+  serial_number: Joi.string().max(100),
+  model: Joi.string().valid(...Object.values(EDroneModel)),
+  weight_limit: Joi.number().max(500),
+  battery_capacity: Joi.number().min(0).max(100),
+  state: Joi.string().valid(...Object.values(EDroneState)),
+}).min(1);
+
 // Medication validation schema
-export const medicationSchema = Joi.object({
-  name: Joi.string().alphanum().required(),
+export const loadMedicationValidation = Joi.object({
+  name: Joi.string()
+    .regex(/^[A-Za-z0-9\-_]+$/)
+    .required(),
   weight: Joi.number().required(),
   code: Joi.string()
     .regex(/^[A-Z0-9_]+$/)

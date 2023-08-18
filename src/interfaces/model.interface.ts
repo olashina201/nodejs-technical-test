@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 
 export enum EDroneModel {
   Lightweight = "Lightweight",
@@ -24,6 +24,7 @@ export interface IDrone extends Document {
 }
 
 export interface IMedication extends Document {
+  droneId: Types.ObjectId | string,
   name: string;
   weight: number;
   code: string;

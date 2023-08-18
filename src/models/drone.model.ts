@@ -14,17 +14,6 @@ const droneSchema: Schema = new Schema<IDrone>({
   state: { type: String, enum: Object.values(EDroneState), required: true },
 });
 
-const DroneLoadingSchema: Schema = new mongoose.Schema<IDroneLoading>({
-  droneId: { type: String, required: true },
-  medications: [
-    {
-      medicationId: { type: String, required: true },
-      quantity: { type: Number, required: true, min: 1 },
-    },
-  ],
-});
-
 const DroneModel = model<IDrone>("Drone", droneSchema);
-const DroneLoadingModel = mongoose.model<IDroneLoading>("DroneLoading", DroneLoadingSchema);
 
-export default { DroneModel, DroneLoadingModel };
+export default DroneModel;

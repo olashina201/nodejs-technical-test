@@ -1,3 +1,4 @@
+import { EDroneState } from "../interfaces/model.interface";
 import { HttpException } from "../exceptions";
 import DroneService from "../services/drone.service";
 import { NextFunction, Request, Response } from "express";
@@ -29,9 +30,30 @@ class IndexController {
         data,
       });
     } catch (err) {
-      // console.log(err);
       next(err);
-      // throw new HttpException(400, 2004, "REGISTER_DRONE_REQUEST_ERROR", []);
+    }
+  }
+
+  public loadDroneWithMedication = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const droneId: string = req.params.droneId;
+  
+      const drone = await this.droneService.findDrone(droneId);
+      if (!drone) throw new HttpException(400, 2001, "DRONE_NOT_FOUND", []);
+
+      const data = await this.droneService.loadDroneWithMedication(req.body);
+
+      // update drone state
+      await this.droneService.updateDrone(droneId, { state: EDroneState.Loaded });
+      
+      return res.status(200).json({
+        status: 200,
+        response_code: 1000,
+        message: "REGISTER_DRONE_REQUEST_SUCCESSFUL",
+        data,
+      });
+    } catch (err) {
+      next(err);
     }
   }
   
