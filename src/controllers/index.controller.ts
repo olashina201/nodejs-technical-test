@@ -1,4 +1,4 @@
-import { EDroneState, IDrone, IMedication } from "../interfaces/model.interface";
+import { EDroneState } from "../interfaces/model.interface";
 import { HttpException } from "../exceptions";
 import DroneService from "../services/drone.service";
 import { NextFunction, Request, Response } from "express";
