@@ -70,7 +70,58 @@ Content-Type: application/json
   "battery_capacity": 80,
   "state": "IDLE"
 }
+```
 
+#### Load Drone with medication Items
+
+To Load a drone with medication item, make a POST request to the `/drone/load/:droneId` endpoint with the required data in the request body.
+
+Example:
+
+```http
+POST /drone/load/:droneId
+Content-Type: application/json
+
+{
+  "name": "Medication123",
+  "weight": 0.25,
+  "code": "MED_456",
+  "image": "https://example.com/medication123.jpg"
+}
+```
+
+#### Get Loaded Medications
+
+To get loaded medications on a drone, make a GET request to the `/drone/loaded/:droneId` endpoint.
+
+Example:
+
+```http
+GET /drone/loaded/:droneId
+Content-Type: application/json
+```
+
+#### Get Drone Battery Level
+
+To get a drone battery level, make a GET request to the `/drone/battery/:droneId` endpoint.
+
+Example:
+
+```http
+GET /drone/battery/:droneId
+Content-Type: application/json
+```
+
+#### Get Drone Available Loading
+
+To get a drone available for loading, make a GET request to the `/drone/available` endpoint.
+
+Example:
+
+```http
+GET /drone/available
+Content-Type: application/json
+```
 
 
 ## Drones
