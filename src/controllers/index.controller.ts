@@ -40,6 +40,8 @@ class IndexController {
   
       const drone = await this.droneService.findDrone(droneId);
       if (!drone) throw new HttpException(400, 2001, "DRONE_NOT_FOUND", []);
+      
+      if (drone && drone.state !== EDroneState.Idle) throw new HttpException(400, 2001, "DRONE_NOT_AVAILABLE_FOR_LOADING", []);
 
       const data = await this.droneService.loadDroneWithMedication(req.body);
 
@@ -57,6 +59,35 @@ class IndexController {
     }
   }
   
+  public getAllDrone = async (_req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = await this.droneService.findDrones();
+      return res.status(200).json({
+        status: 200,
+        response_code: 1000,
+        message: "DRONE_REQUEST_SUCCESSFUL",
+        data,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+  
+  public getDroneBatteryLevel = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = await this.droneService.findDrone(req.params.droneId);
+      return res.status(200).json({
+        status: 200,
+        response_code: 1000,
+        message: "DRONE_REQUEST_SUCCESSFUL",
+        data: {
+          battery_level: data.battery_capacity
+        },
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 export default IndexController;
