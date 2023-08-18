@@ -2,6 +2,8 @@
   "dependencies": {
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "module-alias": "^2.2.3",
+    "mongoose": "^7.4.3",
     "ts-node-dev": "^2.0.0"
   },
   "name": "nodejs-technical-test",
