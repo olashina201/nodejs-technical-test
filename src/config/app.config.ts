@@ -12,7 +12,7 @@ export class App {
 
   constructor(routes: Routes[]) {
     this.app = express();
-    // connectDB();
+    connectDB();
     this.initializeRoutes(routes);
     this.config();
   }
