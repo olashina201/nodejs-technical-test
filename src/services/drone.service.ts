@@ -1,6 +1,6 @@
 import { HttpException } from "../exceptions";
 import DroneModel from "../models/drone.model";
-import { IDrone } from "../interfaces/model.interface";
+import { IDrone, IMedication } from "../interfaces/model.interface";
 import MedicationModel from "../models/medication.model";
 import { droneSchemaValidation, loadMedicationValidation, updateDroneSchemaValidation } from "../validations/drone.validation";
 import mongoose, { Types } from "mongoose";
@@ -34,6 +34,15 @@ class DroneService {
   public async findDrone(droneId: string): Promise<any> {
     const data: any = await DroneModel.findById(new mongoose.Types.ObjectId(droneId)).lean();
     console.log(data)
+    return data;
+  }
+  /*
+  |--------------------------------------------------------------------------
+  | Find Drone
+  |--------------------------------------------------------------------------
+  */
+  public async findMedicationByDrone(droneId: string): Promise<any> {
+    const data: any = await MedicationModel.find({ droneId }).lean();
     return data;
   }
 
@@ -76,7 +85,7 @@ class DroneService {
   | Load Drone With Medication
   |--------------------------------------------------------------------------
   */
-  public async loadDroneWithMedication(body: IDrone): Promise<any> {
+  public async loadDroneWithMedication(body: IMedication | any): Promise<any> {
     const { error } = loadMedicationValidation.validate(body);
 
     if (error) {

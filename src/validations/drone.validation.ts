@@ -25,6 +25,7 @@ export const updateDroneSchemaValidation = Joi.object({
 
 // Medication validation schema
 export const loadMedicationValidation = Joi.object({
+  droneId: Joi.string().required(),
   name: Joi.string()
     .regex(/^[A-Za-z0-9\-_]+$/)
     .required(),

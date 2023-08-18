@@ -16,6 +16,7 @@ class IndexRoute implements Routes {
     this.router.post(`${this.path}drone`, this.indexController.registerDrone);
     this.router.get(`${this.path}drones`, this.indexController.getAllDrone);
     this.router.get(`${this.path}drone/battery/:droneId`, this.indexController.getDroneBatteryLevel);
+    this.router.get(`${this.path}drone/loaded/:droneId`, this.indexController.getDroneLoadedMedications);
     this.router.post(`${this.path}drone/load/:droneId`, this.indexController.loadDroneWithMedication);
   }
 }
