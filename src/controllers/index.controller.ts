@@ -42,7 +42,7 @@ class IndexController {
       const drone = await this.droneService.findDrone(droneId);
       if (!drone) throw new HttpException(400, 2001, "DRONE_NOT_FOUND", []);
       
-      if (drone && drone.state !== EDroneState.Idle) throw new HttpException(400, 2001, "DRONE_NOT_AVAILABLE_FOR_LOADING", []);
+      if (drone && drone.weight_limit < weight) throw new HttpException(400, 2001, "WEIGHT_BIGGER_THAN_DRONE_CAPACITY", []);
 
       const payload = {
         name,
@@ -54,7 +54,7 @@ class IndexController {
       const data = await this.droneService.loadDroneWithMedication(payload);
 
       // update drone state
-      await this.droneService.updateDrone(droneId, { state: EDroneState.Loaded });
+      await this.droneService.updateDrone(droneId, { state: drone.battery_level < 25 ? EDroneState.Loaded : EDroneState.Loading, weight_limit: drone.weight_limit - weight });
       
       return res.status(200).json({
         status: 200,
