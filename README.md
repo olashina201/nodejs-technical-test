@@ -49,6 +49,29 @@ cp .env.example .env
 npm run dev
 ```
 
+### 5. Usage
+
+Once the app is running, you can interact with it using API clients like `curl`, Postman, or by making HTTP requests from your code.
+
+#### Registering a Drone
+
+To register a new drone, make a POST request to the `/drone` endpoint with the required data in the request body.
+
+Example:
+
+```http
+POST /drone
+Content-Type: application/json
+
+{
+  "serial_number": "DRN123",
+  "model": "Lightweight",
+  "weight_limit": 300,
+  "battery_capacity": 80,
+  "state": "IDLE"
+}
+
+
 
 ## Drones
 
