@@ -1,7 +1,8 @@
 import { App } from "./config/app.config";
+import DroneRoute from "./routes/drone.route";
 import IndexRoute from "./routes/index.route";
 
-const { app } = new App([new IndexRoute()]);
+const { app } = new App([new IndexRoute(), new DroneRoute()]);
 
 const PORT = process.env.PORT || 5000;
 

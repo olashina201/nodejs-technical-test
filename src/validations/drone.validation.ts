@@ -2,7 +2,7 @@ import Joi from "joi";
 import { EDroneModel, EDroneState } from "../interfaces/model.interface";
 
 // Drone validation schema
-export const droneSchema = Joi.object({
+export const droneSchemaValidation = Joi.object({
   serial_number: Joi.string().max(100).required(),
   model: Joi.string()
     .valid(...Object.values(EDroneModel))
