@@ -81,6 +81,20 @@ class IndexController {
     }
   }
   
+  public getDroneAvailableForLoading = async (_req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = await this.droneService.availableForLoading();
+      return res.status(200).json({
+        status: 200,
+        response_code: 1000,
+        message: "DRONE_REQUEST_SUCCESSFUL",
+        data,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+  
   public getDroneBatteryLevel = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = await this.droneService.findDrone(req.params.droneId);

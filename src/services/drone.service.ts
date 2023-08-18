@@ -36,6 +36,7 @@ class DroneService {
     console.log(data)
     return data;
   }
+  
   /*
   |--------------------------------------------------------------------------
   | Find Drone
@@ -43,6 +44,16 @@ class DroneService {
   */
   public async findMedicationByDrone(droneId: string): Promise<any> {
     const data: any = await MedicationModel.find({ droneId }).lean();
+    return data;
+  }
+  
+  /*
+  |--------------------------------------------------------------------------
+  | Find Drone
+  |--------------------------------------------------------------------------
+  */
+  public async availableForLoading(): Promise<any> {
+    const data: any = await DroneModel.find({ state: { $in: ['IDLE', 'LOADING'] } }).lean();
     return data;
   }
 
